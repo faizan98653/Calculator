@@ -1,4 +1,5 @@
 //----------------------------------------------------
+let i = 0;
 let string = "";
 let temp = ["*", "/", "c"];
 let display = document.querySelector("#display");
@@ -16,6 +17,7 @@ function formatResult(result) {
   }
 }
 clicked.forEach((symbol) => {
+  i++;
   symbol.addEventListener("click", (event) => {
     let val = event.target.textContent;
     if (val === "=") {
@@ -29,10 +31,14 @@ clicked.forEach((symbol) => {
       string = "";
     } else if (val === "C") {
       string = " ";
-      display.textContent = "Cleared";
+      display.textContent = "0";
     } else if (val === "⌫") {
       string = string.slice(0, -1);
-      display.textContent = string;
+      if (string === "") {
+        display.textContent = "0";
+      } else {
+        display.textContent = string;
+      }
     } else {
       string += val;
       display.textContent = string;
@@ -41,6 +47,7 @@ clicked.forEach((symbol) => {
 
   symbol.addEventListener("keypress", (event) => {
     // for Keyboard clicking
+
     let val = event.key;
     if (symbols.includes(event.key) || val == "Enter") {
       if (val == "=" || val == "Enter") {
